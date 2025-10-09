@@ -40,7 +40,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-20  ">
+    <div className="min-h-screen flex items-center justify-center px-6 py-32 md:py-20  ">
       <motion.div
         initial="hidden"
         animate="visible"
@@ -48,7 +48,7 @@ const ContactPage = () => {
       >
         <motion.h1
           variants={fadeUp}
-          className="text-[#1c1c1c] mb-6 text-[60px] md:text-[70px] font-sono font-normal"
+          className="text-[#1c1c1c] mb-4 md:mb-6 text-[40px] md:text-[70px] font-sono font-normal"
         >
           Холбоо барих
         </motion.h1>
@@ -64,15 +64,9 @@ const ContactPage = () => {
 
         <AnimatePresence mode="wait">
           {!submitted ? (
-            <motion.form
-              key="form"
-              variants={fadeUp}
-              custom={2}
-              initial="hidden"
-              animate="visible"
-              exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.4 } }}
+            <form
               onSubmit={handleSubmit}
-              className="space-y-6  rounded-2xl p-8 transition-all duration-500"
+              className="space-y-6  rounded-2xl p-0 md:p-8 transition-all duration-500"
             >
               <div className="flex flex-col md:flex-row gap-5">
                 <input
@@ -117,7 +111,7 @@ const ContactPage = () => {
               >
                 Илгээх
               </motion.button>
-            </motion.form>
+            </form>
           ) : (
             <motion.div
               key="success"

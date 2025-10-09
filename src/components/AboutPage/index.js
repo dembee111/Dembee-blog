@@ -25,7 +25,7 @@ const AboutPage = () => {
           width={1450}
           height={725}
           priority
-          className="w-[1360px] h-[650px] object-cover object-center rounded-xl shadow-lg"
+          className="w-[1360px] h-[350px] md:h-[650px] object-cover object-center rounded-xl shadow-lg"
         />
 
         <motion.div
@@ -34,7 +34,7 @@ const AboutPage = () => {
           transition={{ duration: 0.8, ease: [0.445, 0.05, 0.55, 0.95] }}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-center"
         >
-          <h1 className="text-[#f1f4f5] text-[90px] font-sono drop-shadow-lg">
+          <h1 className="text-[#f1f4f5] text-[45px] leading-[40px] md:leading-20 xl:leading-20 md:text-[90px] font-sono drop-shadow-lg">
             Миний тухай
           </h1>
         </motion.div>
@@ -43,7 +43,7 @@ const AboutPage = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="max-w-[865px] mx-auto my-16 text-[#1c1c1ccc] text-[18px] font-normal leading-[1.6em] space-y-6"
+        className="max-w-[865px] mx-auto my-9 md:my-16 text-[#1c1c1ccc] text-[18px] font-normal leading-[1.6em] space-y-6"
       >
         <motion.p variants={fadeUp} custom={1}>
           Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend
@@ -55,7 +55,7 @@ const AboutPage = () => {
         <motion.h2
           variants={fadeUp}
           custom={2}
-          className="text-[#1c1c1c] text-[50px] font-normal leading-[1.15em]"
+          className="text-[#1c1c1c] text-[32px] md:text-[50px] font-normal leading-[1.15em]"
         >
           Curabitur ullamcorper.
         </motion.h2>
@@ -72,7 +72,6 @@ const AboutPage = () => {
           pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
         </motion.p>
 
-        {/* --- Info --- */}
         <motion.div
           variants={fadeUp}
           custom={5}
@@ -81,7 +80,7 @@ const AboutPage = () => {
           <h2 className="text-[#1c1c1c80] text-[16px] font-semibold leading-[1.3em]">
             Info
           </h2>
-          <div className="text-[#1c1c1c] text-[24px] font-medium space-y-1">
+          <div className="text-[#1c1c1c] text-[20px] md:text-[24px] font-medium space-y-1">
             <motion.h1
               whileHover={{ x: 10 }}
               transition={{ duration: 0.3 }}
@@ -107,7 +106,7 @@ const AboutPage = () => {
           <h2 className="text-[#1c1c1c80] text-[16px] font-semibold leading-[1.3em]">
             Social
           </h2>
-          <div className="text-[#1c1c1c] text-[24px] font-medium space-y-1">
+          <div className="text-[#1c1c1c] text-[20px] md:text-[24px]  font-medium space-y-1">
             <motion.h1
               whileHover={{ x: 10 }}
               transition={{ duration: 0.3 }}
