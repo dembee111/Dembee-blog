@@ -1,6 +1,7 @@
 import Footer from "../Shared/Footer";
 import Sidebar from "../Shared/Sidebar";
 import Image from "next/image";
+import Link from "next/link";
 
 const HomePage = () => {
   return (
@@ -23,7 +24,10 @@ const HomePage = () => {
           </div>
 
           <div className="flex flex-col space-y-16 py-8 px-16">
-            <div className="grid grid-cols-12 pt-12 border-t border-gray-300">
+            <Link
+              href="/blog/1"
+              className="grid grid-cols-12 pt-12 border-t border-gray-300"
+            >
               <div className="col-span-4">
                 <div className="mb-4">
                   <span className="text-[#1c1c1ccc]">August 27, 2025</span>
@@ -45,7 +49,7 @@ const HomePage = () => {
                   />
                 </div>
               </div>
-            </div>
+            </Link>
 
             <div className="grid grid-cols-12 pt-12 border-t border-gray-300">
               <div className="col-span-4">
