@@ -85,7 +85,7 @@ const BlogPage = ({ blog }) => {
 
           <BlogImage blog={blog} />
         </div>
-        <div className="max-w-4xl  mx-auto my-9 md:my-16 space-y-6">
+        <div className="max-w-3xl  mx-auto my-9 md:my-16 space-y-6">
           <div className="text-noto leading-relaxed text-[#1c1c1ccc] text-[18px] font-normal">
             {documentToReactComponents(blog?.fields?.description, options)}
           </div>

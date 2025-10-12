@@ -20,7 +20,9 @@ const Sidebar = () => {
       <div className="fixed top-0 left-0 bottom-0 w-[110px] h-screen z-50">
         <div className="flex flex-col justify-between items-center bg-[#f1f4f5]  h-full w-full border-r border-[#1c1c1c33] ">
           <div className="mt-6">
-            <h1 className="text-3xl font-light">3D</h1>
+            <Link href="/">
+              <h1 className="text-3xl font-light">3D</h1>
+            </Link>
           </div>
           <div className="-rotate-90 relative">
             <h1 className="text-2xl whitespace-nowrap">
