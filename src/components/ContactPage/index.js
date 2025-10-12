@@ -20,7 +20,8 @@ const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: "",
+    phone: "",
+    description: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -68,49 +69,70 @@ const ContactPage = () => {
               onSubmit={handleSubmit}
               className="space-y-6  rounded-2xl p-0 md:p-8 transition-all duration-500"
             >
-              <div className="flex flex-col md:flex-row gap-5">
-                <input
-                  className="w-full py-[16px] px-[20px] text-[17px] font-medium border border-[#1c1c1c33] rounded-xl  focus:border-b-2 focus:outline-none focus:border-b-[#1c1c1c] transition-all duration-300"
-                  maxLength={256}
-                  name="name"
-                  placeholder="Нэр..."
-                  type="text"
-                  id="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                />
+              <div className="grid grid-cols-12 gap-6">
+                <div className="col-span-6">
+                  <input
+                    className="w-full py-[16px] px-[20px] text-[17px] font-medium border border-[#1c1c1c33] rounded-xl  focus:border-b-2 focus:outline-none focus:border-b-[#1c1c1c] transition-all duration-300"
+                    maxLength={256}
+                    name="name"
+                    placeholder="Нэр..."
+                    type="text"
+                    id="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-span-6">
+                  <input
+                    className="w-full py-[16px] px-[20px] text-[17px] font-medium border border-[#1c1c1c33] rounded-xl focus:outline-none   focus:border-b-2 focus:border-b-[#1c1c1c] transition-all duration-300"
+                    maxLength={256}
+                    name="phone"
+                    placeholder="Утас..."
+                    type="tel"
+                    id="phone"
+                    required
+                    value={formData.phone}
+                    onChange={handleChange}
+                  />
+                </div>
 
-                <input
-                  className="w-full py-[16px] px-[20px] text-[17px] font-medium border border-[#1c1c1c33] rounded-xl focus:outline-none   focus:border-b-2 focus:border-b-[#1c1c1c] transition-all duration-300"
-                  maxLength={256}
-                  name="email"
-                  placeholder="Имэйл..."
-                  type="email"
-                  id="email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                />
+                <div className="col-span-12">
+                  <input
+                    className="w-full py-[16px] px-[20px] text-[17px] font-medium border border-[#1c1c1c33] rounded-xl focus:outline-none   focus:border-b-2 focus:border-b-[#1c1c1c] transition-all duration-300"
+                    maxLength={256}
+                    name="email"
+                    placeholder="Имэйл..."
+                    type="email"
+                    id="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="col-span-12">
+                  <textarea
+                    placeholder="Таны мессеж…"
+                    maxLength={5000}
+                    id="description"
+                    name="description"
+                    className="w-full py-[16px] px-[20px] text-[17px] font-medium border border-[#1c1c1c33] rounded-xl focus:outline-none focus:border-b-2 focus:border-b-[#1c1c1c] transition-all duration-300 resize-none h-40"
+                    value={formData.description}
+                    onChange={handleChange}
+                  ></textarea>
+                </div>
+
+                <div className="col-span-12 flex justify-center items-center">
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    type="submit"
+                    className=" border-2 border-[#1c1c1c] hover:bg-[#1c1c1c] text-[#1c1c1c] cursor-pointer w-52 hover:text-white py-3 px-6 rounded-full font-semibold tracking-wide transition-all duration-300"
+                  >
+                    Илгээх
+                  </motion.button>
+                </div>
               </div>
-
-              <textarea
-                placeholder="Таны мессеж…"
-                maxLength={5000}
-                id="message"
-                name="message"
-                className="w-full py-[16px] px-[20px] text-[17px] font-medium border border-[#1c1c1c33] rounded-xl focus:outline-none focus:border-b-2 focus:border-b-[#1c1c1c] transition-all duration-300 resize-none h-40"
-                value={formData.message}
-                onChange={handleChange}
-              ></textarea>
-
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                type="submit"
-                className=" border-2 border-[#1c1c1c] hover:bg-[#1c1c1c] text-[#1c1c1c] hover:text-white py-4 px-6 rounded-full font-semibold tracking-wide transition-all duration-300"
-              >
-                Илгээх
-              </motion.button>
             </form>
           ) : (
             <motion.div

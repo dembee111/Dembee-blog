@@ -12,12 +12,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   background: var(--background);
@@ -29,4 +29,8 @@ body {
   -webkit-mask-image: linear-gradient(#000 20%, #0000);
   mask-image: linear-gradient(#000 20%, #0000);
   mask-repeat: no-repeat;
+}
+
+.text-noto {
+  font-family: var(--font-noto), sans-serif;
 }

@@ -1,10 +1,17 @@
-import { Vollkorn } from "next/font/google";
+import { Vollkorn, Noto_Sans } from "next/font/google";
 import "./globals.css";
 
 const vollkorn = Vollkorn({
   weight: ["400", "500", "600", "700"],
   subsets: ["cyrillic"],
   display: "swap",
+});
+
+const notoSans = Noto_Sans({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["cyrillic"],
+  display: "swap",
+  variable: "--font-noto",
 });
 
 export const metadata = {
@@ -15,7 +22,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${vollkorn.className} antialiased`}>{children}</body>
+      <body
+        className={`${vollkorn.className} ${notoSans.variable} antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

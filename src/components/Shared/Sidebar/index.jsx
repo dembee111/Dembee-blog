@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BurgerIcon } from "../Icons";
+import { BurgerIcon, CloseIcon } from "../Icons";
 import Link from "next/link";
 
 const Sidebar = () => {
@@ -9,6 +9,7 @@ const Sidebar = () => {
   const [hovered, setHovered] = useState(null);
   const links = [
     { name: "Нүүр", href: "/" },
+    { name: "МАНгас", href: "/mangas" },
     { name: "Бидний тухай", href: "/about" },
     { name: "Холбоо барих", href: "/contact" },
   ];
@@ -31,8 +32,11 @@ const Sidebar = () => {
           </div>
           <div className="mb-8">
             <button onClick={() => setOpen(!open)}>
-              {" "}
-              <BurgerIcon className="size-7 cursor-pointer" />{" "}
+              {!open ? (
+                <BurgerIcon className="size-7 cursor-pointer" />
+              ) : (
+                <CloseIcon className="size-6 cursor-pointer" />
+              )}
             </button>
           </div>
         </div>
@@ -107,47 +111,6 @@ const Sidebar = () => {
           </>
         )}
       </AnimatePresence>
-      {/* ANIMATED OVERLAY & DRAWER */}
-      {/* <AnimatePresence>
-        {open && (
-          <>
-            <motion.div
-              initial={{ width: 0, backgroundColor: "#f1f4f5" }}
-              animate={{
-                width: "100%",
-                backgroundColor: "#f1f4f5",
-              }}
-              exit={{ width: 0, backgroundColor: "#f1f4f5" }}
-              transition={{
-                duration: 0.8,
-                ease: "easeInOut",
-              }}
-              onClick={() => setOpen(false)}
-              className="fixed inset-0 z-20 cursor-pointer"
-            />
-
-            <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="fixed top-0 left-[110px] h-screen w-[calc(100vw-110px)] bg-[#f1f4f5] shadow-lg z-30 flex items-center justify-center"
-            >
-              <motion.ul className="text-center space-y-12 text-4xl font-light">
-                <li className="hover:text-orange-600 transition-colors">
-                  <Link href="/">Нүүр хуудас</Link>
-                </li>
-                <li className="hover:text-orange-600 transition-colors">
-                  <Link href="/about">Бидний тухай</Link>
-                </li>
-                <li className="hover:text-orange-600 transition-colors">
-                  <Link href="/contact">Холбоо барих</Link>
-                </li>
-              </motion.ul>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence> */}
     </>
   );
 };
