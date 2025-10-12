@@ -1,87 +1,124 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const BlogImage = ({ blog }) => {
   const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.play().catch((err) => {
-        console.log("Autoplay blocked:", err);
-      });
-    }
-  }, []);
-
-  const toggleMute = () => {
-    setIsMuted((prev) => {
-      const newValue = !prev;
-      if (audioRef.current) {
-        audioRef.current.muted = newValue;
-      }
-      return newValue;
-    });
-  };
+  const [showDialog, setShowDialog] = useState(false);
 
   const imageUrl = `https:${blog?.fields?.image?.fields?.file?.url}`;
   const audioUrl = `https:${blog?.fields?.audio?.fields?.file?.url}`;
 
+  useEffect(() => {
+    // 3 секунд хүлээж дараа Dialog-г гаргаж байна
+    const timer = setTimeout(() => {
+      setShowDialog(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handlePlay = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.muted = false;
+      audio
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+          setIsMuted(false);
+          setShowDialog(false); // Dialog-ыг хаах
+        })
+        .catch((err) => console.log("Play failed:", err));
+    }
+  };
+
+  const toggleMute = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.muted = !audio.muted;
+    setIsMuted(audio.muted);
+  };
+
   return (
-    <div className="relative">
-      <Image
-        src={imageUrl}
-        alt="blog image"
-        width={1200}
-        height={750}
-        className="w-full h-full object-center object-cover grayscale hover:grayscale-0 transition duration-500 ease-in-out mb-9"
-      />
-
-      {audioUrl && (
-        <audio ref={audioRef} src={audioUrl} muted={isMuted} loop autoPlay />
-      )}
-
-      {/* Mute / Unmute Button */}
-      <div className="absolute left-[5%] bottom-[10%]">
-        <div
-          className="bg-white rounded-full w-12 h-12 flex justify-center items-center cursor-pointer shadow-lg hover:bg-gray-100 transition"
-          onClick={toggleMute}
-        >
-          {isMuted ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6"
+    <>
+      {/* 3 секундийн дараа гарч ирэх Dialog */}
+      <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-noto text-gray-700 text-lg">
+              Аялгууг тоглуулах уу?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-noto text-gray-600 text-base">
+              3D нийтлэл дунд сэтгэл хөдөлгөсөн хэсгүүд их бий. Дараах аялгууг
+              сонсоод уншвал илүү таатай!
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel
+              className="text-noto text-gray-600 text-base"
+              onClick={() => setShowDialog(false)}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
-              />
-            </svg>
-          ) : (
-            // 🔊 Unmuted icon
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6"
+              Үгүй
+            </AlertDialogCancel>
+            <AlertDialogAction
+              className="text-noto text-white text-base"
+              onClick={handlePlay}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
-              />
-            </svg>
-          )}
-        </div>
+              Тэгье
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Blog Image */}
+      <div className="relative">
+        <Image
+          src={imageUrl}
+          alt="blog image"
+          width={1200}
+          height={750}
+          className="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition duration-500 ease-in-out mb-9"
+        />
+
+        {audioUrl && (
+          <audio
+            ref={audioRef}
+            src={audioUrl}
+            loop
+            playsInline
+            muted={isMuted}
+          />
+        )}
+
+        {/* Mute Button */}
+        {isPlaying && (
+          <div
+            className="absolute left-[5%] bottom-[10%] bg-white rounded-full w-12 h-12 flex justify-center items-center cursor-pointer shadow-lg hover:bg-gray-100 transition"
+            onClick={toggleMute}
+          >
+            {isMuted ? (
+              <span className="text-xl">🔇</span>
+            ) : (
+              <span className="text-xl">🔊</span>
+            )}
+          </div>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 
