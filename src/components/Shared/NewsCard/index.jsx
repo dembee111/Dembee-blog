@@ -21,7 +21,7 @@ const NewsCard = ({ item }) => {
         </div>
       </div>
       <div className="col-span-12 xl:col-span-8">
-        <div className="w-full h-auto xl:h-[600px] overflow-hidden">
+        <div className="w-full h-auto xl:h-[500px] 2xl:h-[600px] overflow-hidden">
           <Image
             src={`https:${item.fields.image?.fields.file?.url}`}
             alt="blog image"
