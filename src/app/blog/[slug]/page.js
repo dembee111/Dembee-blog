@@ -1,4 +1,6 @@
 import BlogPage from "@/components/BlogPage";
+import Footer from "@/components/Shared/Footer";
+import Header from "@/components/Shared/Header";
 import Sidebar from "@/components/Shared/Sidebar";
 import { createClient } from "contentful";
 import { unstable_cache } from "next/cache";
@@ -73,7 +75,9 @@ const page = async ({ params }) => {
   return (
     <div className="bg-[#f1f4f5]">
       <Sidebar />
+      <Header />
       <BlogPage blog={blog} />
+      <Footer />
     </div>
   );
 };

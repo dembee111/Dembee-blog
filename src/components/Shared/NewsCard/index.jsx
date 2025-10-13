@@ -8,18 +8,20 @@ const NewsCard = ({ item }) => {
       href={`/blog/${item?.fields.slug}`}
       className="grid grid-cols-12 pt-12 border-t border-gray-300"
     >
-      <div className="col-span-4">
+      <div className="col-span-12 xl:col-span-4 mb-8 xl:mb-0">
         <div className="mb-4">
           <span className="text-[#1c1c1ccc]">
             {formatDate(item?.sys?.createdAt)}
           </span>
         </div>
         <div>
-          <h2 className="text-3xl max-w-md">{item?.fields?.title}</h2>
+          <h2 className="text-2xl xl:text-3xl max-w-md">
+            {item?.fields?.title}
+          </h2>
         </div>
       </div>
-      <div className="col-span-8">
-        <div className="w-full h-[600px] overflow-hidden">
+      <div className="col-span-12 xl:col-span-8">
+        <div className="w-full h-auto xl:h-[600px] overflow-hidden">
           <Image
             src={`https:${item.fields.image?.fields.file?.url}`}
             alt="blog image"

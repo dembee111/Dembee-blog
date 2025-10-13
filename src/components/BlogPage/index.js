@@ -69,7 +69,7 @@ const options = {
 
 const BlogPage = ({ blog }) => {
   return (
-    <div className="py-32">
+    <div className="py-32 px-3 xl:px-0">
       <div className="max-w-6xl mx-auto  justify-center  ">
         <div className="text-center">
           <div className="max-w-[865px]  mx-auto ">
@@ -78,14 +78,14 @@ const BlogPage = ({ blog }) => {
                 {formatDate(blog?.sys?.createdAt)}
               </span>
             </div>
-            <h1 className="text-[#1c1c1c] text-[61px] font-normal leading-16 mb-12">
+            <h1 className="text-[#1c1c1c] text-3xl xl:text-[61px] font-normal leading-10 xl:leading-16 mb-12">
               {blog?.fields?.title}
             </h1>
           </div>
 
           <BlogImage blog={blog} />
         </div>
-        <div className="max-w-3xl  mx-auto my-9 md:my-16 space-y-6">
+        <div className="max-w-3xl mx-auto my-9 md:my-16 space-y-4 xl:space-y-6">
           <div className="text-noto leading-relaxed text-[#1c1c1ccc] text-[18px] font-normal">
             {documentToReactComponents(blog?.fields?.description, options)}
           </div>

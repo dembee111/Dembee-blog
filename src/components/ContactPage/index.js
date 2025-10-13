@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { createClient } from "contentful-management";
+import Swal from "sweetalert2";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -24,24 +26,112 @@ const ContactPage = () => {
     description: "",
   });
 
+  const [errors, setErrors] = useState({
+    name: "",
+    phone: "",
+    email: "",
+  });
+
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const client = createClient({
+    accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_INPUT_TOKEN,
+  });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const validateForm = () => {
+    let valid = true;
+    let newErrors = { name: "", phone: "", email: "", description: "" };
 
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: "", email: "", message: "" });
-    }, 2500);
+    if (!formData.name.trim()) {
+      newErrors.name = "Нэр оруулах шаардлагатай";
+      valid = false;
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Утас оруулах шаардлагатай";
+      valid = false;
+    } else if (!/^\+?\d{8,15}$/.test(formData.phone.trim())) {
+      newErrors.phone = "Зөв утасны дугаар оруулна уу";
+      valid = false;
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Имэйл оруулах шаардлагатай";
+      valid = false;
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email.trim())
+    ) {
+      newErrors.email = "Зөв имэйл оруулна уу";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!validateForm()) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const space = await client.getSpace(
+        process.env.NEXT_PUBLIC_CONTENTFUL_SPACE
+      );
+      const environment = await space.getEnvironment("master");
+
+      await environment.createEntry("contact", {
+        fields: {
+          name: { "en-US": formData.name },
+          email: { "en-US": formData.email },
+          phone: { "en-US": formData.phone },
+          description: { "en-US": formData.description },
+        },
+      });
+
+      Swal.fire({
+        title: "Баярлалаа!",
+        text: "Таны илгээсэн мэдээлэл амжилттай хүлээн авлаа.",
+        icon: "success",
+        confirmButtonText: "Хаах",
+        background: "#ffffff",
+        color: "#1c1c1c",
+        iconColor: "#28a745",
+        customClass: {
+          popup: "rounded-2xl p-6 shadow-lg",
+          confirmButton: `
+            border-2 border-[#1c1c1c] w-52 py-3 px-6 rounded-full font-semibold tracking-wide text-[#1c1c1c]
+            hover:bg-[#1c1c1c] hover:text-white transition-all duration-300 cursor-pointer
+          `,
+        },
+      });
+
+      setSubmitted(true);
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        description: "",
+      });
+    } catch (error) {
+      console.error("Error:", error.message);
+      Swal.fire("Алдаа гарлаа!", "Системийн алдаа.", "error");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-32 md:py-20  ">
+    <div className="min-h-screen flex items-center justify-center px-6 py-32 md:py-20">
       <motion.div
         initial="hidden"
         animate="visible"
@@ -67,12 +157,14 @@ const ContactPage = () => {
           {!submitted ? (
             <form
               onSubmit={handleSubmit}
-              className="space-y-6  rounded-2xl p-0 md:p-8 transition-all duration-500"
+              className="space-y-6 rounded-2xl p-0 md:p-8 transition-all duration-500"
             >
-              <div className="grid grid-cols-12 gap-6">
-                <div className="col-span-6">
+              <div className="grid grid-cols-12 gap-4 xl:gap-6">
+                <div className="col-span-12 xl:col-span-6">
                   <input
-                    className="w-full py-[16px] px-[20px] text-[17px] font-medium border border-[#1c1c1c33] rounded-xl  focus:border-b-2 focus:outline-none focus:border-b-[#1c1c1c] transition-all duration-300"
+                    className={`w-full py-[16px] px-[20px] text-[17px] font-medium border ${
+                      errors?.name ? "border-red-500" : "border-[#1c1c1c33]"
+                    }  rounded-xl focus:border-b-2 focus:outline-none focus:border-b-[#1c1c1c] transition-all duration-300`}
                     maxLength={256}
                     name="name"
                     placeholder="Нэр..."
@@ -81,35 +173,55 @@ const ContactPage = () => {
                     value={formData.name}
                     onChange={handleChange}
                   />
+                  {errors.name && (
+                    <p className="text-red-500 text-sm mt-1 text-start ml-1">
+                      {errors.name}
+                    </p>
+                  )}
                 </div>
-                <div className="col-span-6">
+
+                <div className="col-span-12 xl:col-span-6">
                   <input
-                    className="w-full py-[16px] px-[20px] text-[17px] font-medium border border-[#1c1c1c33] rounded-xl focus:outline-none   focus:border-b-2 focus:border-b-[#1c1c1c] transition-all duration-300"
-                    maxLength={256}
+                    className={`w-full py-[16px] px-[20px] text-[17px] font-medium border ${
+                      errors?.phone ? "border-red-500" : "border-[#1c1c1c33] "
+                    } rounded-xl focus:outline-none focus:border-b-2 focus:border-b-[#1c1c1c] transition-all duration-300`}
+                    maxLength={9}
                     name="phone"
                     placeholder="Утас..."
                     type="tel"
                     id="phone"
-                    required
                     value={formData.phone}
                     onChange={handleChange}
                   />
+                  {errors.phone && (
+                    <p className="text-red-500 text-sm mt-1 text-start ml-1">
+                      {errors.phone}
+                    </p>
+                  )}
                 </div>
 
+                {/* Email */}
                 <div className="col-span-12">
                   <input
-                    className="w-full py-[16px] px-[20px] text-[17px] font-medium border border-[#1c1c1c33] rounded-xl focus:outline-none   focus:border-b-2 focus:border-b-[#1c1c1c] transition-all duration-300"
+                    className={`w-full py-[16px] px-[20px] text-[17px] font-medium border ${
+                      errors?.email ? "border-red-500" : "border-[#1c1c1c33]"
+                    } rounded-xl focus:outline-none focus:border-b-2 focus:border-b-[#1c1c1c] transition-all duration-300`}
                     maxLength={256}
                     name="email"
                     placeholder="Имэйл..."
                     type="email"
                     id="email"
-                    required
                     value={formData.email}
                     onChange={handleChange}
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1 text-start ml-1">
+                      {errors.email}
+                    </p>
+                  )}
                 </div>
 
+                {/* Description */}
                 <div className="col-span-12">
                   <textarea
                     placeholder="Таны мессеж…"
@@ -122,14 +234,21 @@ const ContactPage = () => {
                   ></textarea>
                 </div>
 
+                {/* Submit button */}
                 <div className="col-span-12 flex justify-center items-center">
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     type="submit"
-                    className=" border-2 border-[#1c1c1c] hover:bg-[#1c1c1c] text-[#1c1c1c] cursor-pointer w-52 hover:text-white py-3 px-6 rounded-full font-semibold tracking-wide transition-all duration-300"
+                    disabled={loading}
+                    className={`border-2 border-[#1c1c1c] cursor-pointer w-52 py-3 px-6 rounded-full font-semibold tracking-wide transition-all duration-300
+                      ${
+                        loading
+                          ? "bg-[#1c1c1c] text-white cursor-not-allowed"
+                          : "hover:bg-[#1c1c1c] text-[#1c1c1c] hover:text-white"
+                      }`}
                   >
-                    Илгээх
+                    {loading ? "Илгээж байна..." : "Илгээх"}
                   </motion.button>
                 </div>
               </div>

@@ -17,7 +17,7 @@ const Sidebar = () => {
   return (
     <>
       {/* LEFT FIXED MINI SIDEBAR */}
-      <div className="fixed top-0 left-0 bottom-0 w-[110px] h-screen z-50">
+      <div className="hidden xl:block fixed top-0 left-0 bottom-0 w-[110px] h-screen z-50">
         <div className="flex flex-col justify-between items-center bg-[#f1f4f5]  h-full w-full border-r border-[#1c1c1c33] ">
           <div className="mt-6">
             <Link href="/">

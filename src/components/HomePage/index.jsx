@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createClient } from "contentful";
 import { unstable_cache } from "next/cache";
 import NewsCard from "../Shared/NewsCard";
+import Header from "../Shared/Header";
 
 const fetchBlogPage = async () => {
   const client = createClient({
@@ -34,23 +35,24 @@ const HomePage = async () => {
   return (
     <>
       <Sidebar />
-      <section className="relative ml-[110px] bg-[#f1f4f5]">
+      <Header />
+      <section className="relative ml-0 xl:ml-[110px] bg-[#f1f4f5]">
         <div className="max-w-full mx-auto">
-          <div className="flex flex-col py-32 px-16 ">
-            <div className="flex justify-start items-center mb-12">
-              <h1 className="text-7xl max-w-4xl">
-                The Art of Design: Exploring Visual Thinking and Graphics
+          <div className="flex flex-col py-28 xl:py-32 px-6 xl:px-16">
+            <div className="flex justify-start items-center mb-8 xl:mb-12">
+              <h1 className="text-5xl xl:text-7xl max-w-4xl">
+                Сэтгэгдэл, Мэдрэмж, Дурсамж, Санаа шийдэл, Аялгуу
               </h1>
             </div>
             <div className="flex justify-start items-center">
-              <p className="text-lg text-[#1c1c1ccc] max-w-xl">
-                Delving into design principles, graphic inspiration, and
-                practical advice for creators at every level.
+              <p className="text-base xl:text-lg text-[#1c1c1ccc] max-w-xl">
+                Буддийн шашин, Философи, Улс төр, Технологи зэргээр өөрийн оюунд
+                дурсамж болгон хадгалах зорилготой нийтлэл бичвэр юм.
               </p>
             </div>
           </div>
 
-          <div className="flex flex-col space-y-16 py-8 px-16">
+          <div className="flex flex-col space-y-16 py-8 px-3 xl:px-16">
             {blogs &&
               blogs.map((blog, index) => <NewsCard key={index} item={blog} />)}
           </div>
