@@ -10,6 +10,10 @@ export default function robots() {
         userAgent: "facebookexternalhit",
         allow: "/",
       },
+      {
+        userAgent: "Facebot",
+        allow: "/",
+      },
     ],
     sitemap: "https://samsara.mn/sitemap.xml",
   };

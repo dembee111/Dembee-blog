@@ -57,7 +57,7 @@ export const metadata = {
     "Буддийн гүн ухаан",
   ],
 
-  metadataBase: new URL("https://samsara.mn"),
+  metadataBase: new URL("https://www.samsara.mn"),
 
   alternates: {
     canonical: "https://samsara.mn",
