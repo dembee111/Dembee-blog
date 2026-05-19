@@ -1,4 +1,5 @@
 // app/robots.js
+
 export default function robots() {
   return {
     rules: [
@@ -15,6 +16,7 @@ export default function robots() {
         allow: "/",
       },
     ],
+
     sitemap: "https://samsara.mn/sitemap.xml",
   };
 }
