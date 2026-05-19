@@ -19,7 +19,7 @@ const jsonLd = {
   "@type": "Person",
   name: "Батдэмбэрэл",
   url: "https://samsara.mn",
-  image: "https://samsara.mn/og-image.jpg",
+  image: "https://samsara.mn/og-image.png",
   description:
     "Батдэмбэрэлийн хувийн blog. Програм хангамж, AI, Machine Learning, IoT, философи болон технологийн тухай тэмдэглэлүүд.",
   address: {
@@ -71,7 +71,7 @@ export const metadata = {
     siteName: "Samsara.mn",
     images: [
       {
-        url: "https://samsara.mn/og-image.jpg",
+        url: "https://samsara.mn/og-image.png",
         width: 1200,
         height: 630,
         alt: "Samsara.mn",
@@ -86,7 +86,7 @@ export const metadata = {
     title: "Батдэмбэрэл | Samsara.mn | Програмчлал, AI, IoT, Философи",
     description:
       "Програмчлал, AI, Machine Learning, IoT, hardware architecture болон философийн тухай хувийн блог.",
-    images: ["https://samsara.mn/og-image.jpg"],
+    images: ["https://samsara.mn/og-image.png"],
   },
 
   icons: [
