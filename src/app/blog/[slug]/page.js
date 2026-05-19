@@ -59,7 +59,7 @@ export async function generateMetadata({ params }) {
         {
           url:
             `https:${image?.fields?.file?.url}` ||
-            "https://samsara.mn/og-image.png",
+            "https://images.ctfassets.net/eemteanimdjp/6f6iMPwMs6X4d8r6mZdRWb/e1b51af5af2bf01c7577585dfca635c8/og-image.png",
           width: 1200,
           height: 630,
           alt: title,
