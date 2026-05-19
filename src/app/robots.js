@@ -1,11 +1,16 @@
-export default function robot() {
+// app/robots.js
+export default function robots() {
   return {
-    rules: {
-      // all the user agents from all Search engines
-      userAgent: "*",
-      allow: ["/"],
-      disallow: [],
-    },
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+      },
+      {
+        userAgent: "facebookexternalhit",
+        allow: "/",
+      },
+    ],
     sitemap: "https://samsara.mn/sitemap.xml",
   };
 }
