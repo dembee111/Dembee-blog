@@ -25,7 +25,7 @@ const revalidateBlogBySlug = unstable_cache(
   ["blog-single"],
   {
     revalidate: 3600 * 24,
-  }
+  },
 );
 
 // Dynamic Metadata (SEO) үүсгэх функц
@@ -35,31 +35,29 @@ export async function generateMetadata({ params }) {
 
   if (!blogDetail) {
     return {
-      title: "Алтан зоос мэдээ мэдээлэл",
-      description: "Алтан зоос ББСБ ийн талаар мэдээлэл.",
+      title: "Сэтгэгдэл, Мэдрэмж, Дурсамж, Санаа шийдэл, Аялгуу",
+      description: `Буддийн шашин, Философи, Улс төр, Технологи зэргээр өөрийн оюунд
+                дурсамж болгон хадгалах зорилготой нийтлэл бичвэр юм.`,
     };
   }
 
   const { title, image } = blogDetail.fields;
 
   return {
-    title: `${title} | Алтан зоос ББСБ ийн тухай`,
+    title: `${title} | Samsara буддийн нийтлэл`,
     description:
       title ||
-      "Алтан зоос ББСБ талаар санхүүгийн зөвлөгөө үйлчилгээний талаар мэдээлэл",
-    keywords: `${title}, ББСБ, Банк бус санхүүгийн мэдээлэл, Зээл`,
+      `Буддийн шашин, Философи, Улс төр, Технологи зэргээр өөрийн оюунд
+                дурсамж болгон хадгалах зорилготой нийтлэл бичвэр юм.`,
+    keywords: `${title}, Samsara буддийн нийтлэл`,
     openGraph: {
-      title: `${title} | Алтан зоос ББСБ`,
-      description:
-        title ||
-        "Алтан зоос ББСБ талаар санхүүгийн зөвлөгөө үйлчилгээний талаар мэдээлэл",
-      url: `https://altanzoos.mn/blogs/${slug}`,
+      title: `${title} | Samsara`,
+      description: title || "Samsara буддийн нийтлэл",
+      url: `https://samsara.mn/blog/${slug}`,
       type: "article",
       images: [
         {
-          url:
-            image?.fields?.file?.url ||
-            "https://images.ctfassets.net/fsfl940z9gt0/5bySjZo9QAMMFAyW48HhWc/bb675060b6356b7d97e5dffcb5aa9702/526855426_1322235473235856_3235514157622961277_n.jpg",
+          url: image?.fields?.file?.url || "https://samsara.mn/samsara.jpg",
           width: 1200,
           height: 630,
           alt: title,

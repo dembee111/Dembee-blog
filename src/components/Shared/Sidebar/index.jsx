@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BurgerIcon, CloseIcon } from "../Icons";
 import Link from "next/link";
+import Image from "next/image";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
@@ -25,12 +26,21 @@ const Sidebar = () => {
             </Link>
           </div>
           <div className="-rotate-90 relative">
-            <h1 className="text-2xl whitespace-nowrap">
-              Dembee{" "}
-              <span className="text-[18px] absolute top-0 text-[#1c1c1ccc] ml-0.5">
-                /blog
-              </span>
-            </h1>
+            <div className="flex justify-start items-center gap-3">
+              {/* <Image
+                src="/samsara-logo.jpg"
+                alt="Samsara logo"
+                width={60}
+                height={60}
+                className="w-[40px] h-[40px] object-cover object-center"
+              /> */}
+              <h1 className="text-2xl whitespace-nowrap">
+                Samsara{" "}
+                <span className="text-[18px] absolute top-0 text-[#1c1c1ccc] ml-0.5">
+                  / Blog
+                </span>
+              </h1>
+            </div>
           </div>
           <div className="mb-8">
             <button onClick={() => setOpen(!open)}>

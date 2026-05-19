@@ -39,9 +39,9 @@ const Header = () => {
             href="/"
             className="text-2xl text-[#1c1c1c] relative font-medium"
           >
-            Dembee's{" "}
+            Samsara{" "}
             <span className="text-sm absolute top-1 ml-0.5 text-[#1c1c1c]/70">
-              /blogs
+              / blog
             </span>
           </Link>
           <button onClick={() => setOpen(!open)}>
