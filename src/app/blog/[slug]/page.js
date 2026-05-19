@@ -24,7 +24,7 @@ const revalidateBlogBySlug = unstable_cache(
   },
   ["blog-single"],
   {
-    revalidate: 3600 * 24,
+    revalidate: 60 * 5,
   },
 );
 
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }) {
       type: "article",
       images: [
         {
-          url: image?.fields?.file?.url || "https://samsara.mn/samsara.jpg",
+          url: image?.fields?.file?.url || "https://samsara.mn/og-image.jpg",
           width: 1200,
           height: 630,
           alt: title,
