@@ -57,7 +57,9 @@ export async function generateMetadata({ params }) {
       type: "article",
       images: [
         {
-          url: image?.fields?.file?.url || "https://samsara.mn/og-image.jpg",
+          url:
+            `https:${image?.fields?.file?.url}` ||
+            "https://samsara.mn/og-image.png",
           width: 1200,
           height: 630,
           alt: title,
