@@ -1,4 +1,5 @@
 import { Vollkorn, Noto_Sans } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const vollkorn = Vollkorn({
@@ -133,6 +134,7 @@ export default function RootLayout({ children }) {
       >
         {children}
       </body>
+      <GoogleAnalytics gaId="G-2DRPHC0FGR" />
     </html>
   );
 }
