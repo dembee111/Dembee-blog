@@ -1,9 +1,14 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
 [[headers]]
   for = "/*"
   [headers.values]
     X-Robots-Tag = "all"
-
+    Cache-Control = "public, max-age=0, s-maxage=86400"
+    
 [[headers]]
-  for = "/og-image.jpg"
+  for = "/robots.txt"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
+    X-Robots-Tag = "all"
